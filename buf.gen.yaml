@@ -1,0 +1,23 @@
+version: v2
+
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      module: buf.build/authaas/token-verifier-service
+      value: buf.build/gen/go/authaas/token-verifier-service/protocolbuffers/go
+    - file_option: go_package_prefix
+      module: buf.build/authaas/token
+      value: buf.build/gen/go/authaas/token/protocolbuffers/go
+    - file_option: go_package_prefix
+      module: buf.build/authaas/identity
+      value: buf.build/gen/go/authaas/identity/protocolbuffers/go
+
+inputs:
+  - module: buf.build/authaas/token-verifier-service:0.1.0
+
+plugins:
+  - local: protoc-gen-connect-go
+    out: module
+    opt:
+      - paths=source_relative
